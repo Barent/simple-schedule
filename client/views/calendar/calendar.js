@@ -13,21 +13,23 @@ Template.Calendar.helpers({
 Template.CalendarCalendarDisplay.rendered = function() {
     
 	$('#appointments-calendar').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,basicWeek,basicDay'
+    },
+
     events: function(start, end, timezone, callback) {
+        $('#appointments-calendar').fullCalendar( 'removeEvents' )
         var currentAppointment = Appointments.find({});
-        var events = [];
+        
         currentAppointment.forEach(function(input){
             var innerEvent = {
                 title: input.title,
                 start: input.startdate,
                 end: input.enddate
             }
-            events.push(innerEvent);
-            console.log(input);
-        });
-
-        events.forEach(function(input){
-            $('#appointments-calendar').fullCalendar( 'renderEvent', input, true );
+            $('#appointments-calendar').fullCalendar( 'renderEvent', innerEvent, true );
         });
 
     },
