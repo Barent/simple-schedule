@@ -20,19 +20,33 @@ Template.CalendarCalendarDisplay.rendered = function() {
 
         //alert('Current view: ' + view.name);
         
-        
+        //.fullCalendar( 'renderEvent', event [, stick ] )
+
         var dateTransformed = date.format("MM/DD/YYYY");
         var dateInputString = dateTransformed.toString();
         console.log(dateInputString);
+        //call a modal and use it to add event
+
         
         var currentAppointment = Appointments.findOne({"startdate": { $gte: dateInputString }});
         var theStart = currentAppointment.startdate;
         var eventTitle = currentAppointment.title;
         
         
+        var events =  [
+                {
+                    title: eventTitle,
+                    start: theStart
+                }
+            ]
+        console.log(events[0]);
+        $('#appointments-calendar').fullCalendar( 'renderEvent', events[0], true );
+
+        //$('#appointments-calendar').fullCalendar('rerenderEvents');
+        
        
         // change the day's background color just for fun
-        $(this).css('background-color', 'red');
+        //$(this).css('background-color', 'red');
 
     }
 });
