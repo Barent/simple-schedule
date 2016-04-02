@@ -1,0 +1,23 @@
+<template name="Calendar">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Calendar
+				</h2>
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		{{> CalendarCalendarDisplay}}
+	</div>
+</template>
+
+<template name="CalendarCalendarDisplay">
+	<div class="jumbotron ">
+		<div id="content" class="container">
+			<div id="appointments-calendar"></div>
+		</div>
+	</div>
+</template>
+
