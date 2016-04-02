@@ -11,9 +11,29 @@ Template.Calendar.helpers({
 });
 
 Template.CalendarCalendarDisplay.rendered = function() {
+    
 	$('#appointments-calendar').fullCalendar({
-    dayClick: function(date, jsEvent, view) {
+    events: function(start, end, timezone, callback) {
+        var currentAppointment = Appointments.find({});
+        var events = [];
+        currentAppointment.forEach(function(input){
+            var innerEvent = {
+                title: input.title,
+                start: input.startdate,
+                end: input.enddate
+            }
+            events.push(innerEvent);
+            console.log(input);
+        });
 
+        events.forEach(function(input){
+            $('#appointments-calendar').fullCalendar( 'renderEvent', input, true );
+        });
+
+    },
+        
+    dayClick: function(date, jsEvent, view) {
+        
         //alert('Clicked on: ' + date.format());
 
         //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -24,7 +44,7 @@ Template.CalendarCalendarDisplay.rendered = function() {
 
         var dateTransformed = date.format("MM/DD/YYYY");
         var dateInputString = dateTransformed.toString();
-        console.log(dateInputString);
+        //console.log(dateInputString);
         //call a modal and use it to add event
 
         
@@ -40,7 +60,7 @@ Template.CalendarCalendarDisplay.rendered = function() {
                 }
             ]
         console.log(events[0]);
-        $('#appointments-calendar').fullCalendar( 'renderEvent', events[0], true );
+        //$('#appointments-calendar').fullCalendar( 'renderEvent', events[0], true );
 
         //$('#appointments-calendar').fullCalendar('rerenderEvents');
         
