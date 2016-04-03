@@ -22,15 +22,27 @@ Template.CalendarCalendarDisplay.rendered = function() {
     events: function(start, end, timezone, callback) {
         $('#appointments-calendar').fullCalendar( 'removeEvents' )
         var currentAppointment = Appointments.find({});
-        
+            
         currentAppointment.forEach(function(input){
+            var startingTime = input.starttime;
+            var endingTime = input.endtime;
+            
             var innerEvent = {
-                title: input.title,
-                start: input.startdate,
-                end: input.enddate
+                title: input.title +" - " +input.fieldtech,
+                start: moment(input.startdate +" "+ startingTime, 'MM/DD/YYYY HH:mm'),
+                end: moment(input.enddate+" "+ endingTime, 'MM/DD/YYYY HH:mm'),
+                allDay: false,
+                description: input.Notes
+
             }
+
             $('#appointments-calendar').fullCalendar( 'renderEvent', innerEvent, true );
         });
+
+    },
+
+    eventRender: function(event, element) {
+            element.attr('title', event.title +"  "+event.description);
 
     },
         
@@ -85,7 +97,7 @@ Template.CalendarCalendarDisplay.events({
 });
 
 Template.CalendarCalendarDisplay.helpers({
-
+    
 });
 
 

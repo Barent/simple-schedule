@@ -1,7 +1,8 @@
 var pageSession = new ReactiveDict();
 
 Template.AppointmentsInsert.rendered = function() {
-	
+	$('#starttimeInput').timepicker();
+	$('#endtimeInput').timepicker();
 };
 
 Template.AppointmentsInsert.events({
